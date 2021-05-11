@@ -17,6 +17,11 @@ public abstract class Room extends JPanel{
 	private Room prev;
 	
 	/**
+	 * A reference to a branched room.
+	 */
+	private Room side;
+	
+	/**
 	 * ?????????????????????
 	 */
 	private static final long serialVersionUID = 1L;
@@ -24,10 +29,12 @@ public abstract class Room extends JPanel{
 	/**
 	 * This is an individual room that the player can enter and exit.
 	 */
-	public Room() {
+	public Room(Room prev) {
 		super();
 		setVisible(true);
 		setPreferredSize(new Dimension(1000, 700));
+		
+		this.prev = prev;
 	}
 	
 	/**
@@ -36,6 +43,14 @@ public abstract class Room extends JPanel{
 	 */
 	public void setNext(Room r) {
 		next = r;
+	}
+	
+	/**
+	 * Changes the room to the side.
+	 * @param r	The new Room.
+	 */
+	public void setSide(Room r) {
+		side = r;
 	}
 	
 	/**
@@ -52,6 +67,14 @@ public abstract class Room extends JPanel{
 	 */
 	public Room getNext() {
 		return next;
+	}
+	
+	/**
+	 * Returns the side room.
+	 * @return	The Room to branch.
+	 */
+	public Room getSide() {
+		return side;
 	}
 	
 	/**

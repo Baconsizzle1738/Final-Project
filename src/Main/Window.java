@@ -13,12 +13,18 @@ public class Window extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
+	RoomHandler handler;
+	
+	
 	/**
 	 * The main JFrame for the project.
 	 * @param title	Title of window.
 	 */
 	public Window (String title) {
 		super();
+		handler = new RoomHandler();
+		
 		setTitle(title);
 		setVisible(true);
 		setPreferredSize(new Dimension(1000, 700));
