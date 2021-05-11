@@ -19,6 +19,10 @@ public class Start extends Room{
 		r = new Random();
 		setBackground(new Color(r.nextInt(11)+90, r.nextInt(11)+90, r.nextInt(11)+90));
 		JButton next = new JButton("NEXT ROOM");
+		next.setBackground(new Color(160, 0, 0));
+		
+		add(next);
+		
 		
 	}
 	
