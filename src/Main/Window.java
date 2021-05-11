@@ -26,7 +26,7 @@ public class Window extends JFrame{
 		setBackground(new Color(100, 100, 100));
 		Container c = getContentPane();
 		
-		//stuff
+		c.add(new Start());
 		
 		pack();
 	}
