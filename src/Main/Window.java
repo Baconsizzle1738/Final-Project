@@ -32,7 +32,7 @@ public class Window extends JFrame{
 		setBackground(new Color(100, 100, 100));
 		Container c = getContentPane();
 		
-		c.add(new Start());
+		c.add(new Start(null, handler));
 		
 		pack();
 	}

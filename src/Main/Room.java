@@ -1,6 +1,7 @@
 package Main;
 
 import java.awt.Dimension;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -9,18 +10,24 @@ public abstract class Room extends JPanel{
 	/**
 	 * A reference to the next room.
 	 */
-	private Room next;
+	protected Room next;
 	
 	/**
 	 * A reference to a previous room.
 	 */
-	private Room prev;
+	protected Room prev;
 	
 	/**
 	 * A reference to a branched room.
 	 */
-	private Room side;
+	protected Room side;
 	
+	/**
+	 * A RNG for determining room properties.
+	 */
+	protected Random r;
+	
+	protected RoomHandler handler;
 	/**
 	 * ?????????????????????
 	 */
@@ -29,10 +36,14 @@ public abstract class Room extends JPanel{
 	/**
 	 * This is an individual room that the player can enter and exit.
 	 */
-	public Room(Room prev) {
+	public Room(Room prev, RoomHandler h) {
 		super();
+		r = new Random();
+		handler = h;
+		
 		setVisible(true);
 		setPreferredSize(new Dimension(1000, 700));
+		
 		
 		this.prev = prev;
 	}
