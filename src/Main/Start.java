@@ -1,6 +1,8 @@
 package Main;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -10,7 +12,7 @@ import javax.swing.JButton;
  * @author Baconsizzle1738
  *
  */
-public class Start extends Room{
+public class Start extends Room implements ActionListener{
 	
 	/**
 	 * ???????????
@@ -20,7 +22,7 @@ public class Start extends Room{
 	Random r;
 	
 	
-	public Start () {
+	public Start (RoomHandler h) {
 		super(null);
 		r = new Random();
 		
@@ -31,5 +33,14 @@ public class Start extends Room{
 		
 		
 	}
-	
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JButton button = (JButton) e.getSource();
+		if (button.getText().equals("ENTER")) {
+			this.getParent().remove(this);
+		}
+	}
+
 }
