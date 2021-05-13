@@ -15,6 +15,10 @@ public class RoomHandler {
 		rooms.add(r);
 	}
 	
+	public int size() {
+		return rooms.size();
+	}
+	
 	
 	
 }

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 import javax.swing.JButton;
 
@@ -19,6 +18,8 @@ public class TravelRoom extends Room implements ActionListener{
 	public TravelRoom(Room prev, RoomHandler h) {
 		super(prev, h);
 		
+		System.out.println("REE");
+		
 		setBackground(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256)));
 		setPreferredSize(new Dimension(1000, 700));
 		
@@ -30,37 +31,48 @@ public class TravelRoom extends Room implements ActionListener{
 		JButton back = new JButton("GO BACK");
 		back.setBackground(new Color(130, 130, 130));
 		back.addActionListener(this);
+		add(back);
 		
 		
 		if (isDead != 0) {
 			JButton next = new JButton("NEXT");
 			next.setBackground(new Color(0, 0, 210));
 			next.addActionListener(this);
+			add(next);
 			
-			if (isWarp == 0) {
+			if (isWarp == 0 && handler.size() >= 3) {
 				JButton warp = new JButton("WARP");
 				warp.setBackground(new Color(0, 210, 0));
 				warp.addActionListener(this);
+				add(warp);
 			}
 			if (isSplit == 0) {
 				JButton split = new JButton("TURN");
 				split.setBackground(new Color(210, 0, 0));
 				split.addActionListener(this);
+				add(split);
 			}
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		String source = ((JButton) e.getSource()).getText();
 		if (source.equals("GO BACK") && prev != null) {
 			getParent().add(prev);
+			prev.revalidate();
+			getParent().revalidate();
 			getParent().remove(this);
 		}
 		
 		if (source.equals("NEXT")) {
 			if (next == null) {
 				next = new TravelRoom(this, handler);
+				handler.add(next);
+				getParent().add(next);
+				getParent().revalidate();
+				getParent().remove(this);
 			}
 		}
 		

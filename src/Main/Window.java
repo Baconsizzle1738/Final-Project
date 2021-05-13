@@ -3,6 +3,7 @@ package Main;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
@@ -25,6 +26,8 @@ public class Window extends JFrame{
 		super();
 		handler = new RoomHandler();
 		
+		setLayout(new GridLayout());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle(title);
 		setVisible(true);
 		setPreferredSize(new Dimension(1000, 700));

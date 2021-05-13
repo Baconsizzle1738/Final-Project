@@ -29,6 +29,8 @@ public class Start extends Room implements ActionListener{
 		setBackground(new Color(r.nextInt(11)+90, r.nextInt(11)+90, r.nextInt(11)+90));
 		JButton next = new JButton("ENTER");
 		next.setBackground(new Color(160, 0, 0));
+		next.addActionListener(this);
+		
 		add(next);
 		
 		
@@ -39,7 +41,12 @@ public class Start extends Room implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JButton button = (JButton) e.getSource();
 		if (button.getText().equals("ENTER")) {
-			this.getParent().add(new TravelRoom(this, handler));
+			TravelRoom ree = new TravelRoom(null, handler);
+			handler.add(ree);
+			this.getParent().add(ree);
+			this.getParent().revalidate();
+			this.getParent().remove(this);
+			
 		}
 	}
 
