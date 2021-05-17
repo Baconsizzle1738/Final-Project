@@ -61,7 +61,6 @@ public class TravelRoom extends Room implements ActionListener{
 		String source = ((JButton) e.getSource()).getText();
 		if (source.equals("GO BACK") && prev != null) {
 			getParent().add(prev);
-			prev.revalidate();
 			getParent().revalidate();
 			getParent().remove(this);
 		}
@@ -70,12 +69,21 @@ public class TravelRoom extends Room implements ActionListener{
 			if (next == null) {
 				next = new TravelRoom(this, handler);
 				handler.add(next);
-				getParent().add(next);
-				getParent().revalidate();
-				getParent().remove(this);
 			}
+			getParent().add(next);
+			getParent().revalidate();
+			getParent().remove(this);
 		}
 		
+		if (source.equals("TURN")) {
+			if (side == null) {
+				side = new TravelRoom(this, handler);
+				handler.add(side);
+			}
+			getParent().add(side);
+			getParent().revalidate();
+			getParent().remove(this);
+		}
 		
 	}
 	
