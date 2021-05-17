@@ -40,7 +40,7 @@ public class TravelRoom extends Room implements ActionListener{
 			next.addActionListener(this);
 			add(next);
 			
-			if (isWarp == 0 && handler.size() >= 3) {
+			if (isWarp == 0 && handler.size() >= 5) {
 				JButton warp = new JButton("WARP");
 				warp.setBackground(new Color(0, 210, 0));
 				warp.addActionListener(this);
@@ -61,8 +61,9 @@ public class TravelRoom extends Room implements ActionListener{
 		String source = ((JButton) e.getSource()).getText();
 		if (source.equals("GO BACK") && prev != null) {
 			getParent().add(prev);
-			getParent().revalidate();
+			getParent().validate();
 			getParent().remove(this);
+			prev.getParent().revalidate();
 		}
 		
 		if (source.equals("NEXT")) {
@@ -71,8 +72,9 @@ public class TravelRoom extends Room implements ActionListener{
 				handler.add(next);
 			}
 			getParent().add(next);
-			getParent().revalidate();
+			getParent().validate();
 			getParent().remove(this);
+			next.getParent().revalidate();
 		}
 		
 		if (source.equals("TURN")) {
@@ -81,8 +83,17 @@ public class TravelRoom extends Room implements ActionListener{
 				handler.add(side);
 			}
 			getParent().add(side);
-			getParent().revalidate();
+			getParent().validate();
 			getParent().remove(this);
+			side.getParent().revalidate();
+		}
+		
+		if (source.equals("WARP")) {
+			Room randWarp = handler.get();
+			getParent().add(randWarp);
+			getParent().validate();
+			getParent().remove(this);
+			randWarp.getParent().revalidate();
 		}
 		
 	}
