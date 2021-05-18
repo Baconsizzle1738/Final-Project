@@ -2,6 +2,8 @@ package Main;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,6 +16,10 @@ public class TravelRoom extends Room implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Determines properties of room and if it behaves like a tree node or a link node.
+	 */
+	int isDead, isWarp, isSplit;
 
 	public TravelRoom(Room prev, RoomHandler h) {
 		super(prev, h);
@@ -24,9 +30,9 @@ public class TravelRoom extends Room implements ActionListener{
 		setPreferredSize(new Dimension(1000, 700));
 		
 		//20% chance for 2 next rooms, 0.5% chance for a dead room, and 5% chance for a warp to a random previous room.
-		int isSplit = r.nextInt(5);
-		int isWarp = r.nextInt(20);
-		int isDead = r.nextInt(200);
+		isSplit = r.nextInt(5);
+		isWarp = r.nextInt(20);
+		isDead = r.nextInt(200);
 		
 		JButton back = new JButton("GO BACK");
 		back.setBackground(new Color(130, 130, 130));
@@ -34,10 +40,11 @@ public class TravelRoom extends Room implements ActionListener{
 		add(back);
 		
 		
-		if (isDead != 0) {
+		if (isDead <= 100) {
 			JButton next = new JButton("NEXT");
 			next.setBackground(new Color(0, 0, 210));
 			next.addActionListener(this);
+			
 			add(next);
 			
 			if (isWarp == 0 && handler.size() >= 5) {
@@ -95,6 +102,32 @@ public class TravelRoom extends Room implements ActionListener{
 			getParent().remove(this);
 			randWarp.getParent().revalidate();
 		}
+		
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		String s = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm`1234567890-=~!@#$%^&*()_+[]{}|;':,.<>";
+		if (isDead >100) {
+			g.setFont(new Font(Font.MONOSPACED, 0, 12));
+			
+			setBackground(Color.black);
+			g.setColor(new Color(0, 180, 0));
+			g.fillOval(250, 133, 500, 500);
+			
+			
+			g.setColor(new Color(0f, 0.52f, 0f, 0.5f));
+			for (int y = 0; y<14; y++) {
+				for (int x = 0; x<200; x++) {
+					int ind = r.nextInt(s.length()-1);
+					g.drawString(s.substring(ind), y*80, x*5);
+				}
+			}
+			
+		}
+		repaint();
+		
 		
 	}
 	
