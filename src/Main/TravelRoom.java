@@ -27,7 +27,7 @@ public class TravelRoom extends Room implements ActionListener{
 		System.out.println("REE");
 		
 		setLayout(null);
-		setBackground(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256)));
+		setBackground(new Color(r.nextInt(20)+70, r.nextInt(20)+70, r.nextInt(20)+70));
 		setPreferredSize(new Dimension(1000, 700));
 		
 		//20% chance for 2 next rooms, 0.5% chance for a dead room, and 5% chance for a warp to a random previous room.
@@ -38,7 +38,7 @@ public class TravelRoom extends Room implements ActionListener{
 		JButton back = new JButton("GO BACK");
 		back.setBackground(new Color(130, 130, 130));
 		back.addActionListener(this);
-		back.setBounds(100, 100, 90, 30);
+		back.setBounds(10, 305, 90, 30);
 		add(back);
 		
 		
@@ -46,7 +46,7 @@ public class TravelRoom extends Room implements ActionListener{
 			JButton next = new JButton("NEXT");
 			next.setBackground(new Color(0, 0, 210));
 			next.addActionListener(this);
-			next.setBounds(200, 200, 90, 30);
+			next.setBounds(880, 305, 90, 30);
 			add(next);
 			
 			if (isWarp == 0 && handler.size() >= 5) {
@@ -60,7 +60,7 @@ public class TravelRoom extends Room implements ActionListener{
 				JButton split = new JButton("TURN");
 				split.setBackground(new Color(210, 0, 0));
 				split.addActionListener(this);
-				split.setBounds(400, 400, 90, 30);
+				split.setBounds(605, 305, 90, 30);
 				add(split);
 			}
 		}
@@ -69,6 +69,7 @@ public class TravelRoom extends Room implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		//handles the traversal of rooms.
 		String source = ((JButton) e.getSource()).getText();
 		
 		if (source.equals("GO BACK") && prev != null) {
@@ -76,7 +77,8 @@ public class TravelRoom extends Room implements ActionListener{
 			getParent().add(prev);
 			getParent().validate();
 			getParent().remove(this);
-			prev.getParent().validate();
+			prev.getParent().revalidate();
+			prev.getParent().repaint();
 		}
 		
 		if (source.equals("NEXT")) {
@@ -88,6 +90,7 @@ public class TravelRoom extends Room implements ActionListener{
 			getParent().validate();
 			getParent().remove(this);
 			next.getParent().revalidate();
+			next.getParent().repaint();
 		}
 		
 		if (source.equals("TURN")) {
@@ -99,6 +102,7 @@ public class TravelRoom extends Room implements ActionListener{
 			getParent().validate();
 			getParent().remove(this);
 			side.getParent().revalidate();
+			side.getParent().repaint();
 		}
 		
 		if (source.equals("WARP")) {
@@ -107,6 +111,7 @@ public class TravelRoom extends Room implements ActionListener{
 			getParent().validate();
 			getParent().remove(this);
 			randWarp.getParent().revalidate();
+			randWarp.getParent().repaint();
 		}
 		
 	}
@@ -117,8 +122,9 @@ public class TravelRoom extends Room implements ActionListener{
 		String s = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm`1234567890-=~!@#$%^&*()_+[]{}|;':,.<>";
 		if (isDead == 0) {
 			g.setFont(new Font(Font.MONOSPACED, 0, 12));
-			
 			setBackground(Color.black);
+			
+			//ominous face
 			g.setColor(new Color(0, 100, 0));
 			g.fillOval(250, 133, 500, 500);
 			g.setColor(Color.black);
@@ -127,6 +133,7 @@ public class TravelRoom extends Room implements ActionListener{
 			g.fillRect(30, 325, 900, 20);
 			g.fillRect(355, 500, 300, 20);
 			
+			//The matrix
 			g.setColor(new Color(0f, 0.52f, 0f, 0.5f));
 			for (int y = 0; y<14; y++) {
 				for (int x = 0; x<200; x++) {
@@ -134,7 +141,22 @@ public class TravelRoom extends Room implements ActionListener{
 					g.drawString(s.substring(ind), y*80, x*5);
 				}
 			}
+		}
+		
+		else {
 			
+			g.setColor(new Color(160, 160, 160));
+			g.drawLine(0, 450, 1050, 450);
+			
+			//next/prev door
+			g.drawRect(5, 300, 100, 150);
+			g.drawRect(875, 300, 100, 150);
+			if (isSplit == 0) {
+				g.drawRect(600, 300, 100, 150);
+			}
+			if (isWarp == 0) {
+				g.drawString(s.charAt(r.nextInt(s.length()-1)), r.nextInt(200)+100, r.nextInt(300)+150);
+			}
 		}
 		repaint();
 		
