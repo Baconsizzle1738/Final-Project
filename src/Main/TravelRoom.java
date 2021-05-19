@@ -26,6 +26,7 @@ public class TravelRoom extends Room implements ActionListener{
 		
 		System.out.println("REE");
 		
+		setLayout(null);
 		setBackground(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256)));
 		setPreferredSize(new Dimension(1000, 700));
 		
@@ -40,11 +41,11 @@ public class TravelRoom extends Room implements ActionListener{
 		add(back);
 		
 		
-		if (isDead <= 100) {
+		if (isDead != 0) {
 			JButton next = new JButton("NEXT");
 			next.setBackground(new Color(0, 0, 210));
 			next.addActionListener(this);
-			
+			next.setBounds(200, 200, 70, 20);
 			add(next);
 			
 			if (isWarp == 0 && handler.size() >= 5) {
@@ -109,13 +110,17 @@ public class TravelRoom extends Room implements ActionListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		String s = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm`1234567890-=~!@#$%^&*()_+[]{}|;':,.<>";
-		if (isDead >100) {
+		if (isDead == 0) {
 			g.setFont(new Font(Font.MONOSPACED, 0, 12));
 			
 			setBackground(Color.black);
-			g.setColor(new Color(0, 180, 0));
+			g.setColor(new Color(0, 100, 0));
 			g.fillOval(250, 133, 500, 500);
-			
+			g.setColor(Color.black);
+			g.fillOval(380, 300, 70, 70);
+			g.fillOval(550, 300, 70, 70);
+			g.fillRect(30, 325, 900, 20);
+			g.fillRect(355, 500, 300, 20);
 			
 			g.setColor(new Color(0f, 0.52f, 0f, 0.5f));
 			for (int y = 0; y<14; y++) {

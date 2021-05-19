@@ -26,7 +26,7 @@ public class Window extends JFrame{
 		super();
 		handler = new RoomHandler();
 		
-		setLayout(new GridLayout());
+		//setLayout(new GridLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle(title);
 		setVisible(true);
