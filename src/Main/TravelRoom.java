@@ -38,6 +38,7 @@ public class TravelRoom extends Room implements ActionListener{
 		JButton back = new JButton("GO BACK");
 		back.setBackground(new Color(130, 130, 130));
 		back.addActionListener(this);
+		back.setBounds(100, 100, 90, 30);
 		add(back);
 		
 		
@@ -45,19 +46,21 @@ public class TravelRoom extends Room implements ActionListener{
 			JButton next = new JButton("NEXT");
 			next.setBackground(new Color(0, 0, 210));
 			next.addActionListener(this);
-			next.setBounds(200, 200, 70, 20);
+			next.setBounds(200, 200, 90, 30);
 			add(next);
 			
 			if (isWarp == 0 && handler.size() >= 5) {
 				JButton warp = new JButton("WARP");
 				warp.setBackground(new Color(0, 210, 0));
 				warp.addActionListener(this);
+				warp.setBounds(300, 300, 90, 30);
 				add(warp);
 			}
 			if (isSplit == 0) {
 				JButton split = new JButton("TURN");
 				split.setBackground(new Color(210, 0, 0));
 				split.addActionListener(this);
+				split.setBounds(400, 400, 90, 30);
 				add(split);
 			}
 		}
@@ -67,11 +70,13 @@ public class TravelRoom extends Room implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		String source = ((JButton) e.getSource()).getText();
+		
 		if (source.equals("GO BACK") && prev != null) {
+			System.out.println("AAAAA");
 			getParent().add(prev);
 			getParent().validate();
 			getParent().remove(this);
-			prev.getParent().revalidate();
+			prev.getParent().validate();
 		}
 		
 		if (source.equals("NEXT")) {
