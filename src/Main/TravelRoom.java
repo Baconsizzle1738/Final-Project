@@ -53,7 +53,7 @@ public class TravelRoom extends Room implements ActionListener{
 				JButton warp = new JButton("WARP");
 				warp.setBackground(new Color(0, 210, 0));
 				warp.addActionListener(this);
-				warp.setBounds(300, 300, 90, 30);
+				warp.setBounds(305, 305, 90, 30);
 				add(warp);
 			}
 			if (isSplit == 0) {
@@ -120,8 +120,8 @@ public class TravelRoom extends Room implements ActionListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		String s = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm`1234567890-=~!@#$%^&*()_+[]{}|;':,.<>";
+		g.setFont(new Font(Font.MONOSPACED, 0, 12));
 		if (isDead == 0) {
-			g.setFont(new Font(Font.MONOSPACED, 0, 12));
 			setBackground(Color.black);
 			
 			//ominous face
@@ -148,16 +148,28 @@ public class TravelRoom extends Room implements ActionListener{
 			g.setColor(new Color(160, 160, 160));
 			g.drawLine(0, 450, 1050, 450);
 			
-			//next/prev door
+			//doors
 			g.drawRect(5, 300, 100, 150);
 			g.drawRect(875, 300, 100, 150);
 			if (isSplit == 0) {
 				g.drawRect(600, 300, 100, 150);
 			}
+			//warp gets special effects
 			if (isWarp == 0) {
-				g.drawString(s.charAt(r.nextInt(s.length()-1)), r.nextInt(200)+100, r.nextInt(300)+150);
+				for (int i = 0; i<10; i++) {
+					g.drawString(Character.toString(s.charAt(r.nextInt(s.length()-1))), r.nextInt(101)+300, r.nextInt(151)+300);
+				}
+				
 			}
 		}
+		
+		//weird floor things
+		g.setColor(new Color(0f, 0.3f, 0f, 0.6f));
+		for (int i = 0; i<1; i++) {
+			g.drawString(s.substring(r.nextInt(s.length())), r.nextInt(1000), r.nextInt(250)+457);
+		}
+		
+		
 		repaint();
 		
 		
