@@ -33,16 +33,20 @@ public class TravelRoom extends Room implements ActionListener{
 		//20% chance for 2 next rooms, 0.5% chance for a dead room, and 5% chance for a warp to a random previous room.
 		isSplit = r.nextInt(5);
 		isWarp = r.nextInt(20);
-		isDead = r.nextInt(200);
+		isDead = r.nextInt(250);
 		
-		JButton back = new JButton("GO BACK");
-		back.setBackground(new Color(130, 130, 130));
-		back.addActionListener(this);
-		back.setBounds(10, 305, 90, 30);
-		add(back);
+		
 		
 		
 		if (isDead != 0) {
+			
+			JButton back = new JButton("GO BACK");
+			back.setBackground(new Color(130, 130, 130));
+			back.addActionListener(this);
+			back.setBounds(10, 305, 90, 30);
+			add(back);
+			
+			
 			JButton next = new JButton("NEXT");
 			next.setBackground(new Color(0, 0, 210));
 			next.addActionListener(this);
@@ -155,7 +159,7 @@ public class TravelRoom extends Room implements ActionListener{
 				g.drawRect(600, 300, 100, 150);
 			}
 			//warp gets special effects
-			if (isWarp == 0) {
+			if (isWarp == 0 && handler.size() >= 5) {
 				for (int i = 0; i<10; i++) {
 					g.drawString(Character.toString(s.charAt(r.nextInt(s.length()-1))), r.nextInt(101)+300, r.nextInt(151)+300);
 				}
